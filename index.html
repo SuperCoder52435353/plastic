@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Card Banking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Virtual Banking</h1>
+                <p>Secure Card Management System</p>
+            </div>
+            
+            <div class="login-tabs">
+                <button id="userLoginTab" class="tab-btn active" data-testid="tab-user-login">User Login</button>
+                <button id="adminLoginTab" class="tab-btn" data-testid="tab-admin-login">Admin Login</button>
+                <button id="signupTab" class="tab-btn" data-testid="tab-signup">Sign Up</button>
+            </div>
+
+            <!-- User Login Form -->
+            <form id="userLoginForm" class="login-form active">
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" placeholder="Enter your email" required data-testid="input-user-email">
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" id="userPassword" placeholder="Enter your password" required data-testid="input-user-password">
+                </div>
+                <button type="submit" class="btn btn-primary" data-testid="button-user-login">Login</button>
+            </form>
+
+            <!-- Admin Login Form -->
+            <form id="adminLoginForm" class="login-form">
+                <div class="form-group">
+                    <label for="adminPassword">Admin Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password" required data-testid="input-admin-password">
+                </div>
+                <button type="submit" class="btn btn-primary" data-testid="button-admin-login">Admin Login</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="login-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required data-testid="input-signup-name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required data-testid="input-signup-email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required data-testid="input-signup-password">
+                </div>
+                <button type="submit" class="btn btn-primary" data-testid="button-signup">Create Account</button>
+            </form>
+
+            <div class="demo-controls">
+                <button id="resetDemo" class="btn btn-outline" data-testid="button-reset-demo">Reset Demo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="userDashboard" class="screen">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <h2 id="userName" data-testid="text-user-name">Welcome</h2>
+                <p id="userEmail" data-testid="text-user-email">user@example.com</p>
+            </div>
+            <div class="header-actions">
+                <button id="userNotifications" class="notification-btn" data-testid="button-user-notifications">
+                    <span class="notification-icon">🔔</span>
+                    <span id="userNotificationCount" class="notification-count" data-testid="text-user-notification-count">0</span>
+                </button>
+                <button id="userLogout" class="btn btn-outline" data-testid="button-user-logout">Logout</button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="section">
+                <div class="section-header">
+                    <h3>My Cards</h3>
+                    <button id="applyForCard" class="btn btn-primary" data-testid="button-apply-card">Apply for Card</button>
+                </div>
+                <div id="userCards" class="cards-grid" data-testid="user-cards-grid">
+                    <!-- Cards will be inserted here -->
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Transfer Money</h3>
+                <form id="transferForm" class="transfer-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sourceCard">From Card</label>
+                            <select id="sourceCard" required data-testid="select-source-card">
+                                <option value="">Select your card</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="destinationPAN">To Card Number</label>
+                            <input type="text" id="destinationPAN" placeholder="1234 5678 9012 3456" maxlength="19" required data-testid="input-destination-pan">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="transferAmount">Amount</label>
+                            <input type="number" id="transferAmount" placeholder="0.00" step="0.01" min="0.01" required data-testid="input-transfer-amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="transferNote">Note (Optional)</label>
+                            <input type="text" id="transferNote" placeholder="Payment description" data-testid="input-transfer-note">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-testid="button-transfer">Send Transfer</button>
+                </form>
+            </div>
+
+            <div class="section">
+                <h3>Support Chat</h3>
+                <div id="userChat" class="chat-container" data-testid="user-chat">
+                    <div id="userChatMessages" class="chat-messages" data-testid="user-chat-messages">
+                        <!-- Messages will be inserted here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="userChatInput" placeholder="Type your message..." data-testid="input-user-chat">
+                        <button id="sendUserMessage" class="btn btn-primary" data-testid="button-send-user-message">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="screen">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <h2>Admin Panel</h2>
+                <p>System Administration</p>
+            </div>
+            <div class="header-actions">
+                <button id="adminNotifications" class="notification-btn" data-testid="button-admin-notifications">
+                    <span class="notification-icon">🔔</span>
+                    <span id="adminNotificationCount" class="notification-count" data-testid="text-admin-notification-count">0</span>
+                </button>
+                <button id="adminLogout" class="btn btn-outline" data-testid="button-admin-logout">Logout</button>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="applications" data-testid="tab-applications">Applications</button>
+                <button class="admin-tab" data-tab="users" data-testid="tab-users">Users</button>
+                <button class="admin-tab" data-tab="chat" data-testid="tab-chat">Messages</button>
+                <button class="admin-tab" data-tab="actions" data-testid="tab-actions">Actions</button>
+            </div>
+
+            <!-- Applications Tab -->
+            <div id="applicationsTab" class="admin-tab-content active">
+                <div class="section-header">
+                    <h3>Card Applications</h3>
+                    <span id="pendingApplicationsCount" class="badge" data-testid="text-pending-applications">0</span>
+                </div>
+                <div id="applicationsList" class="applications-list" data-testid="applications-list">
+                    <!-- Applications will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="usersTab" class="admin-tab-content">
+                <div class="section-header">
+                    <h3>User Management</h3>
+                </div>
+                <div id="usersList" class="users-list" data-testid="users-list">
+                    <!-- Users will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chatTab" class="admin-tab-content">
+                <div class="chat-layout">
+                    <div class="chat-sidebar">
+                        <h4>User Conversations</h4>
+                        <div id="chatUsersList" class="chat-users-list" data-testid="chat-users-list">
+                            <!-- Chat users will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="chat-main">
+                        <div id="adminChatMessages" class="chat-messages" data-testid="admin-chat-messages">
+                            <div class="no-chat-selected">Select a user to view conversation</div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="adminChatInput" placeholder="Type your reply..." data-testid="input-admin-chat">
+                            <button id="sendAdminMessage" class="btn btn-primary" data-testid="button-send-admin-message">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Tab -->
+            <div id="actionsTab" class="admin-tab-content">
+                <div class="admin-actions">
+                    <div class="action-card">
+                        <h4>Create Card for User</h4>
+                        <form id="createCardForm">
+                            <select id="selectUserForCard" required data-testid="select-user-for-card">
+                                <option value="">Select user</option>
+                            </select>
+                            <input type="number" id="initialBalance" placeholder="Initial balance" step="0.01" min="0" data-testid="input-initial-balance">
+                            <button type="submit" class="btn btn-primary" data-testid="button-create-card">Create Card</button>
+                        </form>
+                    </div>
+                    
+                    <div class="action-card">
+                        <h4>Broadcast Payout</h4>
+                        <form id="broadcastPayoutForm">
+                            <input type="number" id="payoutAmount" placeholder="Amount to send" step="0.01" min="0.01" required data-testid="input-payout-amount">
+                            <button type="submit" class="btn btn-primary" data-testid="button-broadcast-payout">Send to All Users</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div id="notificationsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Notifications</h3>
+                <button class="modal-close" data-testid="button-close-notifications">&times;</button>
+            </div>
+            <div id="notificationsList" class="notifications-list" data-testid="notifications-list">
+                <!-- Notifications will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Templates -->
+    <template id="cardTemplate">
+        <div class="card" data-testid="card-{cardId}">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="card-chip"></div>
+                        <div class="card-logo">VISA</div>
+                    </div>
+                    <div class="card-number" data-testid="text-card-number-{cardId}">•••• •••• •••• ••••</div>
+                    <div class="card-info">
+                        <div class="card-holder">
+                            <label>CARD HOLDER</label>
+                            <span data-testid="text-card-holder-{cardId}">NAME</span>
+                        </div>
+                        <div class="card-expiry">
+                            <label>VALID THRU</label>
+                            <span data-testid="text-card-expiry-{cardId}">MM/YY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-details">
+                <div class="card-balance">
+                    <span class="balance-label">Balance:</span>
+                    <span class="balance-amount" data-testid="text-card-balance-{cardId}">$0.00</span>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-sm freeze-btn" data-testid="button-freeze-{cardId}">Freeze</button>
+                    <button class="btn btn-sm btn-outline details-btn" data-testid="button-details-{cardId}">Details</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="applicationTemplate">
+        <div class="application-item" data-testid="application-{applicationId}">
+            <div class="application-info">
+                <div class="applicant-name" data-testid="text-applicant-name-{applicationId}">Name</div>
+                <div class="applicant-email" data-testid="text-applicant-email-{applicationId}">email@example.com</div>
+                <div class="application-date" data-testid="text-application-date-{applicationId}">Date</div>
+            </div>
+            <div class="application-actions">
+                <button class="btn btn-success approve-btn" data-testid="button-approve-{applicationId}">Approve</button>
+                <button class="btn btn-danger reject-btn" data-testid="button-reject-{applicationId}">Reject</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="userItemTemplate">
+        <div class="user-item" data-testid="user-{userId}">
+            <div class="user-info">
+                <div class="user-name" data-testid="text-user-name-{userId}">Name</div>
+                <div class="user-email" data-testid="text-user-email-{userId}">email@example.com</div>
+                <div class="user-cards-count" data-testid="text-user-cards-count-{userId}">0 cards</div>
+            </div>
+            <div class="user-actions">
+                <button class="btn btn-sm chat-btn" data-testid="button-chat-{userId}">Chat</button>
+                <button class="btn btn-sm btn-outline freeze-all-btn" data-testid="button-freeze-all-{userId}">Freeze All Cards</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="messageTemplate">
+        <div class="message" data-testid="message-{messageId}">
+            <div class="message-sender" data-testid="text-message-sender-{messageId}">Sender</div>
+            <div class="message-content" data-testid="text-message-content-{messageId}">Message content</div>
+            <div class="message-time" data-testid="text-message-time-{messageId}">Time</div>
+        </div>
+    </template>
+
+    <template id="notificationTemplate">
+        <div class="notification-item" data-testid="notification-{notificationId}">
+            <div class="notification-content">
+                <div class="notification-title" data-testid="text-notification-title-{notificationId}">Title</div>
+                <div class="notification-message" data-testid="text-notification-message-{notificationId}">Message</div>
+                <div class="notification-time" data-testid="text-notification-time-{notificationId}">Time</div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
